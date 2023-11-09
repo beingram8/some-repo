@@ -1,6 +1,9 @@
 import app from "./app";
 import Config from "./config/appConfig";
-import { startConnection } from "./database/connection";
+import {
+  closeDatabaseConnection,
+  startConnection,
+} from "./database/connection";
 import logger from "./middlewares/logger";
 import process from "process";
 
@@ -12,8 +15,9 @@ const server = app.listen(Config.PORT, async () => {
 // Graceful shutdown logic
 const gracefulShutdown = (signal: string) => {
   logger.info(`${signal} signal received: closing HTTP server`);
-  server.close(() => {
+  server.close(async () => {
     logger.info("HTTP server closed");
+    await closeDatabaseConnection();
     process.exit(0);
   });
 };

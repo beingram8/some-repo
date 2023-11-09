@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { CustomError } from '../errors/errorClass';
+import { CustomError } from '../errors/httpErrors';
 import Joi from 'joi';
 import { Constants } from '../types/common';
 import { ReasonPhrases } from 'http-status-codes';

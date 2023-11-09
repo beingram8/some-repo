@@ -14,7 +14,7 @@ import {
     allowMixed: Severity.ALLOW,
   },
 })
-class User {
+export class User {
   @prop({ required: true })
   public name!: string;
 }

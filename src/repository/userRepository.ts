@@ -1,10 +1,10 @@
-import UserModel, { IUser } from "../models/userModel";
+import UserModel, { User } from "../models/userModel";
 import { GetAllParams, QueryParams, UpdateParams } from "../types/database";
 
-export const getUser = ({ query, selectQuery, populate }: QueryParams<IUser>) =>
+export const getUser = ({ query, selectQuery, populate }: QueryParams<User>) =>
   UserModel.findOne(query, selectQuery).populate(populate);
 
-export const createNewUser = (user: IUser) => UserModel.create(user);
+export const createNewUser = (user: User) => UserModel.create(user);
 
 export const getUserByID = (id: string, populate?: any) =>
   UserModel.findById(id).populate(populate);
@@ -13,7 +13,7 @@ export const updateUser = ({
   query,
   updateBody,
   options,
-}: UpdateParams<IUser>) =>
+}: UpdateParams<User>) =>
   UserModel.findOneAndUpdate(query, updateBody, options);
 
 export const getUsers = ({
@@ -23,7 +23,7 @@ export const getUsers = ({
   sortQuery,
   page = 1,
   size = 10,
-}: GetAllParams<IUser>) => {
+}: GetAllParams<User>) => {
   let query = UserModel.find(searchQuery)
     .select(selectQuery)
     .skip((page - 1) * size)
@@ -40,7 +40,7 @@ export const getUsers = ({
   return query;
 };
 
-export const createNewUsers = (userModules: IUser[], options?: any) =>
+export const createNewUsers = (userModules: User[], options?: any) =>
   UserModel.insertMany(userModules, options);
 
 export const deleteUserById = (id: string) => UserModel.findByIdAndDelete(id);

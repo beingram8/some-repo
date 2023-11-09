@@ -1,21 +1,21 @@
 import { userRepository } from "../repository";
-import { IUser } from "../models/userModel";
-import { NotFoundError } from "../errors/errorClass";
+import { User } from "../models/userModel";
+import { NotFoundError } from "../errors/httpErrors";
 import { ApiMessages } from "../constants/apiMessages";
 
-export const getUsers = async (): Promise<IUser[]> => {
-  const users = (await userRepository.getUsers({})) as IUser[];
+export const getUsers = async (): Promise<User[]> => {
+  const users = (await userRepository.getUsers({})) as User[];
   if (users.length === 0) throw new NotFoundError(ApiMessages.USERS_NOT_FOUND);
   return users;
 };
 
-export const getUserByID = async (id: string): Promise<IUser> => {
-  const user = (await userRepository.getUserByID(id)) as IUser;
+export const getUserByID = async (id: string): Promise<User> => {
+  const user = (await userRepository.getUserByID(id)) as User;
   if (!user) throw new NotFoundError(ApiMessages.USER_NOT_FOUND);
   return user;
 };
 
-export const createUser = async (user: IUser): Promise<IUser> => {
-  const newUser = (await userRepository.createNewUser(user)) as IUser;
+export const createUser = async (user: User): Promise<User> => {
+  const newUser = (await userRepository.createNewUser(user)) as User;
   return newUser;
 };
